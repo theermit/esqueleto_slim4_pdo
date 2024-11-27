@@ -1,0 +1,17 @@
+{
+    "require": {
+        "slim/slim": "^4.14",
+        "php-di/php-di": "^7.0",
+        "guzzlehttp/psr7": "^2.7"
+    },
+    "autoload": {
+        "psr-4": {
+            "Config\\": "Config/",
+            "Controllers\\": "Controllers/",
+            "Handlers\\": "Handlers/",
+            "Routes\\": "Routes/",
+            "Services\\": "Services/",
+            "Traits\\": "Traits/"
+        }
+    }
+}
