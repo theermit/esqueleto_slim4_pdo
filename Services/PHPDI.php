@@ -2,9 +2,12 @@
 namespace Services;
 
 use \DI\ContainerBuilder;
+use \DI\Container;
 use \Config\Config;
-use Controllers\BaseController;
-use Services\BaseObject;
+use Controllers\PessoaController;
+use Services\DbConn;
+use Slim\Psr7\Factory\ResponseFactory;
+use Middlewares\CORS;
 
 class PHPDI 
 {
@@ -15,11 +18,19 @@ class PHPDI
             "GetConfig" => function ():array{
                 return Config::GetConfig();
             },
-            BaseObject::class => \DI\autowire(BaseObject::class),
-            "GetConn" => \DI\Factory(function (DbConn $dbConn):\PDO{
-                return $dbConn->GetConn();
-            }),
-            BaseController::class => \DI\autowire(BaseController::class),
+            ResponseFactory::class => function(){
+                return new ResponseFactory;
+            },
+            DbConn::class =>function(Container $c){
+                return new DbConn($c);
+            },
+            "GetConn" => function(Container $c){
+                return $c->get(DbConn::class)->GetConn();
+            },
+            "CORsMiddleware" => \DI\autowire(CORS::class),
+            PessoaController::class => function(Container $c){
+                return new PessoaController($c);
+            },
         ]);
     } 
 }

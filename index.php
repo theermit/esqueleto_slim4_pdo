@@ -7,7 +7,7 @@ use \Slim\Factory\ServerRequestCreatorFactory;
 use \DI\ContainerBuilder;
 use \Services\PHPDI;
 use \Routes\Routes;
-use \Slim\Middleware\BodyParsingMiddleware;
+use \Routes\CORS;
 
 
 require 'vendor/autoload.php';
@@ -39,10 +39,11 @@ register_shutdown_function($shutdownHandler);
 $app->addRoutingMiddleware();
 $app->addBodyParsingMiddleware();
 
+// Configuração do CORS
+CORS::SetCORS($app);
+
 $errorMidleware = $app->addErrorMiddleware($displayErrorDetails, false, false);
 $errorMidleware->setDefaultErrorHandler($errorHandler);
-
-
 
 Routes::SetRoutes($app);
 

@@ -12,9 +12,14 @@ class Config
             "password" => null,
             "options" => null
         ];
-        
+        $setarCORS = true;
+
+        $CORSDomain = "*";
+
         return [
             "db" => $db
+            ,"setarCORS" => $setarCORS
+            ,"CORSDomain" => $CORSDomain
         ];
     }
 }
